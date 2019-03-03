@@ -6,6 +6,7 @@
           <input
             v-model="user"
             v-on:blur="saveUser"
+            v-on:keyup.enter="saveUser"
             v-bind:style="{'text-transform': 'capitalize'}"
             ref="autocompleteTextbox"
             type="text"

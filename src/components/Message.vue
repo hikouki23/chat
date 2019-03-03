@@ -34,6 +34,8 @@ export default {
     saveMessage(){
       if(this.message)
         db.collection("messages").add({author: this.currentUser, content: this.message, date:Date.now()});
+
+      this.message = '';  
     }
   }
 };
