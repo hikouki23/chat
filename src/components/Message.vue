@@ -6,7 +6,6 @@
           <input
             v-model="message"
             v-on:keyup.enter="saveMessage"
-            v-bind:style="{'text-transform': 'capitalize'}"
             ref="autocompleteTextbox"
             type="text"
             id="autocomplete-input"
