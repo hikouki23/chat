@@ -27,6 +27,7 @@ export default {
   methods: {
     saveUser() {
       db.collection('users').doc(this.user).set({name:this.user}, {merge:true})
+      this.$emit('user-update', this.user);
     }
   },
   mounted() {

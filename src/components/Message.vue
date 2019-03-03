@@ -23,7 +23,9 @@ import db from "../firebase";
 
 export default {
   name: "Message",
-  props: ['currentUser'],
+  props: {
+    currentUser: String
+  },
   data() {
     return {
       message: ''

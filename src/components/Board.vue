@@ -14,7 +14,7 @@
       </div>
     </div>
     <ul v-if="loaded" class="collection with-header">
-      <User/>
+      <User v-on:user-update="updateUser"/>
       <li class="collection-header">
         <h3>Messages</h3>
       </li>
@@ -24,7 +24,7 @@
       </li>
     </ul>
     <div id="writeMessage">
-      <Message currentUser="hikouki"/>
+      <Message v-bind:currentUser="currentUser"/>
     </div>
   </div>
 </template>
@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       loaded: false,
-      messages: []
+      messages: [],
+      currentUser: 'Anon'
     };
   },
   created() {
@@ -66,6 +67,12 @@ export default {
           })
       }
     )
+  },
+  methods:
+  {
+    updateUser(user){
+      this.currentUser = user;
+    }
   }
 };
 </script>
