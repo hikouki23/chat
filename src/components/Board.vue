@@ -35,7 +35,7 @@ import User from "./User.vue";
 import Message from "./Message.vue";
 
 export default {
-  name: "board",
+  name: "Board",
   components: { User, Message },
   data() {
     return {

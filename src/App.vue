@@ -1,7 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="container">
+      <Board />
     </div>
-    <router-view />
   </div>
 </template>
+
+<script>
+import Board from './components/Board.vue';
+
+export default {
+  name:'App',
+  components: {Board}
+}
+</script>
