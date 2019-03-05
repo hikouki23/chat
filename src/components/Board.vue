@@ -1,76 +1,76 @@
 <template>
   <div id="board">
-    <div v-if="!loaded" class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-red-only">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
+    <Loading v-bind:loaded="loaded"/>
+    <v-layout v-if="loaded" row>
+      <v-flex>
+        <v-card>
+          <v-list one-line>
+            <User v-on:user-update="updateUser"/>
+            <template v-for="(message, index) in messages">
+              <v-subheader
+                :key="message.id"
+              >{{new Date(message.date).toLocaleDateString()}} {{new Date(message.date).toLocaleTimeString()}}</v-subheader>
+              <v-list-tile :key="message.id">
+                <v-chip>
+                  <v-avatar v-bind:color="currentUser.color">
+                    <span class="black--text">{{message.author[0]}}</span>
+                  </v-avatar>
+                  {{message.author}}
+                </v-chip>
+                <v-list-tile-content>
+                  <v-list-tile-title v-text="message.content"></v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
+            </template>
+          </v-list>
+        </v-card>
+        <div id="writeMessage">
+          <Message v-bind:currentUser="currentUser"/>
         </div>
-        <div class="gap-patch">
-          <div class="circle"></div>
-        </div>
-        <div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-    <ul v-if="loaded" class="collection with-header">
-      <User v-on:user-update="updateUser"/>
-      <li class="collection-header">
-        <h3>Messages</h3>
-      </li>
-      <li class="collection-item" v-for="message in messages" v-bind:key="message.id">
-        <div class="chip">{{message.author}}</div>
-        {{message.content}}
-      </li>
-    </ul>
-    <div id="writeMessage">
-      <Message v-bind:currentUser="currentUser"/>
-    </div>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
 import db from "../firebase";
-import User from "./User.vue";
 import Message from "./Message.vue";
+import Loading from "../views/Loading.vue";
 
 export default {
   name: "Board",
-  components: { User, Message },
+  components: { Message, Loading },
   data() {
     return {
       loaded: false,
       messages: [],
-      currentUser: 'Anon'
+      currentUser: { name: "Anon", color: "grey" }
     };
   },
   created() {
     db.collection("messages")
-    .orderBy('date', 'desc').limit(10)
+      .orderBy("date", "asc")
+      .limit(10)
       .get()
       .then(snapshot => {
         snapshot.forEach(message => {
-          console.log(message.data());
           this.messages.push(message.data());
         });
       })
       .then(() => (this.loaded = true));
   },
-  mounted(){
+  mounted() {
     let mountedDate = Date.now();
-    db.collection("messages").onSnapshot(
-      snapshot=>{
-        snapshot.docChanges().forEach(
-          change=> {
-            if(change.type === 'added' && change.doc.data().date > mountedDate)
-             this.messages.push(change.doc.data());
-          })
-      }
-    )
+    db.collection("messages").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === "added" && change.doc.data().date > mountedDate)
+          this.messages.push(change.doc.data());
+      });
+    });
   },
-  methods:
-  {
-    updateUser(user){
+  methods: {
+    updateUser(user) {
       this.currentUser = user;
     }
   }

@@ -1,51 +1,43 @@
 <template>
-  <div class="row">
-    <div class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <input
-            v-model="user"
-            v-on:blur="saveUser"
-            v-on:keyup.enter="saveUser"
-            v-bind:style="{'text-transform': 'capitalize'}"
-            ref="autocompleteTextbox"
-            type="text"
-            id="autocomplete-input"
-            class="autocomplete" >
-          <label for="autocomplete-input">Your name here</label>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-card>
+    <v-card-text>
+      <v-subheader class="pa-0">Profile</v-subheader>
+      <v-autocomplete
+        v-model="userName"
+        :hint="'Your name here'"
+        :items="users"
+        :label="'User Name'"
+        persistent-hint
+        prepend-icon="fas fa-edit"
+      ></v-autocomplete>
+    </v-card-text>
+  </v-card>
+  <!-- v-bind:style="{'text-transform': 'capitalize'}">-->
 </template>
 <script>
 import db from "../firebase";
 export default {
   name: "User",
   data() {
-    return { users: [], user: "" };
+    return { users: [], userName: "Anon" };
   },
   methods: {
     saveUser() {
-      db.collection('users').doc(this.user).set({name:this.user}, {merge:true})
-      this.$emit('user-update', this.user);
+      db.collection("users")
+        .doc(this.user)
+        .set({ name: this.userName }, { merge: true }); //vuex
+      this.$emit("user-update", { name: this.userName });
     }
   },
   mounted() {
-      let autocompleteUsers = {};
-      db.collection("users")
-        .get()
-        .then(snapshot => {
-          snapshot.forEach(user => {
-            autocompleteUsers[user.data().name] = null;
-          });
-        })
-        .then(() => {
-          $(this.$refs.autocompleteTextbox).autocomplete({
-            data: autocompleteUsers
-          });
+    db.collection("users")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(user => {
+          this.users.push(user.data().name);
         });
-    }
+      });
+  }
 };
 </script>
 

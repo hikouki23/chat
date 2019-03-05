@@ -1,7 +1,9 @@
 import Vue from "vue";
+import './plugins/vuetify'
 import App from "./App.vue";
+import User from "./components/User.vue";
 
-Vue.config.productionTip = false;
+Vue.component('User', User);
 
 new Vue({
   render: h => h(App)

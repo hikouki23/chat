@@ -23,7 +23,7 @@ import db from "../firebase";
 export default {
   name: "Message",
   props: {
-    currentUser: String
+    currentUser: Object
   },
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
   methods: {
     saveMessage(){
       if(this.message)
-        db.collection("messages").add({author: this.currentUser, content: this.message, date:Date.now()});
+        db.collection("messages").add({author: this.currentUser.name, content: this.message, date:Date.now()});
 
       this.message = '';  
     }
