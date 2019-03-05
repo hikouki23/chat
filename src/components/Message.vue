@@ -1,20 +1,10 @@
 <template>
-   <div class="row">
-    <div class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <input
-            v-model="message"
-            v-on:keyup.enter="saveMessage"
-            ref="autocompleteTextbox"
-            type="text"
-            id="autocomplete-input"
-            class="autocomplete" >
-          <label for="autocomplete-input">Write message</label>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-flex>
+    <v-card>
+      <v-text-field append-icon="close" v-on:click:append="clearMessage" v-model="message" v-on:keyup.enter="saveMessage" label="Write your message">
+      </v-text-field>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
@@ -27,15 +17,22 @@ export default {
   },
   data() {
     return {
-      message: ''
+      message: ""
     };
   },
   methods: {
-    saveMessage(){
-      if(this.message)
-        db.collection("messages").add({author: this.currentUser.name, content: this.message, date:Date.now()});
+    saveMessage() {
+      if (this.message)
+        db.collection("messages").add({
+          author: this.currentUser.name,
+          content: this.message,
+          date: Date.now()
+        });
 
-      this.message = '';  
+      this.message = "";
+    },
+    clearMessage() {
+      this.message = "";
     }
   }
 };

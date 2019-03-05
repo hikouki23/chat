@@ -1,0 +1,4 @@
+fix capitalize on user input
+user joined/left alert ->snackbar
+users online
+user x is writing a message alert

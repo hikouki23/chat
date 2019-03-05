@@ -3,8 +3,6 @@ import './plugins/vuetify'
 import App from "./App.vue";
 import User from "./components/User.vue";
 
-Vue.component('User', User);
-
 new Vue({
   render: h => h(App)
 }).$mount("#app");

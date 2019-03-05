@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Board from './components/Board'
+import Board from './views/Board'
 
 export default {
   name: 'App',
