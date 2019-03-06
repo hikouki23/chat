@@ -16,22 +16,25 @@
     </v-toolbar>
 
     <v-content>
-      <Board/>
+      <Board v-show="loaded"/>
+      <Loading />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Board from './views/Board'
+import Board from "./views/Board";
+import Loading from "./views/Loading.vue";
+import store from "./store";
 
 export default {
   name: 'App',
   components: {
-    Board
+    Board, Loading
   },
-  data () {
-    return {
-      //
+  computed:{
+    loaded(){
+      return store.state.loaded;
     }
   }
 }

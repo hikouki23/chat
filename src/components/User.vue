@@ -20,17 +20,19 @@
 </template>
 <script>
 import db from "../firebase";
+import store from "../store";
 export default {
   name: "User",
   data() {
-    return { users: [], userName: "Anon" };
+    return { users: [], userName: store.state.user.name };
   },
   methods: {
     saveUser() {
+      let user = {name: this.userName, color:'grey'}
       db.collection("users")
         .doc(this.userName)
-        .set({ name: this.userName }, { merge: true }); //vuex
-      this.$emit("user-update", { name: this.userName });
+        .set(user, { merge: true }); 
+      store.commit('updateUser', user);
     }
   },
   mounted() {

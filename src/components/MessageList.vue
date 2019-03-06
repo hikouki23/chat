@@ -1,7 +1,5 @@
 <template>
   <v-flex xs12>
-    <Loading v-bind:loaded="loaded"/>
-    <div id="loading" v-if="loaded">
       <v-card>
         <v-list one-line>
           <template v-for="(message, index) in messages">
@@ -10,7 +8,7 @@
             >{{new Date(message.date).toLocaleDateString()}} {{new Date(message.date).toLocaleTimeString()}}</v-subheader>
             <v-list-tile :key="message.id">
               <v-chip>
-                <v-avatar v-bind:color="currentUser.color">
+                <v-avatar v-bind:color="user.color">
                   <span class="black--text">{{message.author[0]}}</span>
                 </v-avatar>
                 {{message.author}}
@@ -23,28 +21,30 @@
           </template>
         </v-list>
       </v-card>
-    </div>
   </v-flex>
 </template>
 
 <script>
 import db from "../firebase";
 import Message from "./Message.vue";
-import Loading from "../views/Loading.vue";
+import store from "../store";
 
 export default {
   name: "MessageList",
-   props: {
-    currentUser: Object
-  },
-  components: { Message, Loading },
+  components: { Message },
   data() {
     return {
       loaded: false,
       messages: [],      
     };
   },
+  computed:{
+    user(){
+      return store.state.user;
+    }
+  },
   created() {
+
     db.collection("messages")
       .orderBy("date", "asc")
       .limit(10)
@@ -54,9 +54,10 @@ export default {
           this.messages.push(message.data());
         });
       })
-      .then(() => (this.loaded = true));
+      .then(() => (store.commit('setLoaded')));
   },
   mounted() {
+        console.log('created')
     let mountedDate = Date.now();
     db.collection("messages").onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
