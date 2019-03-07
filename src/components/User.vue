@@ -1,9 +1,7 @@
 <template>
-  <v-flex xs 6>
-    <v-card>
-      <v-card-text>
+     <span>
         <v-subheader class="pa-0">Profile</v-subheader>
-        <v-combobox
+        <v-combobox :style="{'width':'100%'}"
           v-model="userName"
           :hint="'Your name here'"
           :items="users"
@@ -12,11 +10,8 @@
           v-on:blur="saveUser"
           persistent-hint
           prepend-icon="fas fa-edit"
-          v-bind:style="{'text-transform': 'capitalize'}"
         ></v-combobox>
-      </v-card-text>
-    </v-card>
-  </v-flex>
+        </span>
 </template>
 <script>
 import db from "../firebase";
@@ -46,4 +41,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+>>>input{
+  text-transform: capitalize;
+}
+>>>span{
+ height: 75%;
+}
+</style>
+
 

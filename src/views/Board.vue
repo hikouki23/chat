@@ -1,7 +1,7 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout row wrap>
-        <User/>
+  <v-container fluid>
+    <v-layout wrap>
+        <User class="hidden-m-and-up"/>
         <MessageList />
         <Message />
     </v-layout>
@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import MessageList from "../components/MessageList.vue";
-import User from "../components/User.vue";
-import Message from "../components/Message.vue";
+import MessageList from "../components/MessageList";
+import User from "../components/User";
+import Message from "../components/Message";
 
 export default {
   name: "Board",

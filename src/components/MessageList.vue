@@ -17,7 +17,7 @@
                 <v-card-text>{{message.content}}</v-card-text>
               </v-list-tile-content>
             </v-list-tile>
-            <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
+            <v-divider v-if="index + 1 < messages.length" :key="index" inset></v-divider>
           </template>
         </v-list>
       </v-card>
@@ -26,7 +26,7 @@
 
 <script>
 import db from "../firebase";
-import Message from "./Message.vue";
+import Message from "./Message";
 import store from "../store";
 
 export default {
