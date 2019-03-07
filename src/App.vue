@@ -19,11 +19,12 @@ export default {
   components: {
     Board,
     Loading,
-    Toolbar
+    Toolbar,
+    store
   },
   computed: {
     loaded() {
-      return store.state.loaded;
+      return this.$store.state.loaded;
     }
   }
 };

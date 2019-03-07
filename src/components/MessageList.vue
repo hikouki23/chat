@@ -14,7 +14,9 @@
                 {{message.author}}
               </v-chip>
               <v-list-tile-content>
+                <v-flex>
                 <v-card-text>{{message.content}}</v-card-text>
+                </v-flex>
               </v-list-tile-content>
             </v-list-tile>
             <v-divider v-if="index + 1 < messages.length" :key="index" inset></v-divider>
@@ -27,7 +29,6 @@
 <script>
 import db from "../firebase";
 import Message from "./Message";
-import store from "../store";
 
 export default {
   name: "MessageList",
@@ -40,7 +41,7 @@ export default {
   },
   computed:{
     user(){
-      return store.state.user;
+      return this.$store.state.user;
     }
   },
   created() {
@@ -55,7 +56,7 @@ export default {
         });
         this.messages = this.messages.reverse();
       })
-      .then(() => (store.commit('setLoaded')));
+      .then(() => (this.$store.commit('setLoaded')));
   },
   mounted() {
         console.log('created')

@@ -1,8 +1,9 @@
 import Vue from "vue";
-import './plugins/vuetify'
+import './plugins/vuetify';
 import App from "./App.vue";
 import User from "./components/User.vue";
-import store from './store'
+import store from './store';
+import setup from "./notifications";
 
 new Vue({
   store,

@@ -2,8 +2,9 @@
   <v-toolbar app class="py-1">
     <v-toolbar-title class="headline text-uppercase">
       <span>Hikouki</span>
-      <span class="font-weight-light">Chat</span>
+      <span class="font-weight-light">Chat</span>     
     </v-toolbar-title>
+     <Alert/>
     <v-spacer/>
     <v-toolbar-items class="hidden-sm-and-down">
       <User/>
@@ -19,14 +20,15 @@
 
 <script>
 import User from "../components/User";
+import Alert from "./Alert";
 export default {
   name: "Toolbar",
-  components: { User }
+  components: { User, Alert }
 };
 </script>
 
 <style scoped>
->>>i.fab {
+>>> i.fab {
   font-size: 2.5em;
 }
 </style>

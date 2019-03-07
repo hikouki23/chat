@@ -14,7 +14,6 @@
 
 <script>
 import db from "../firebase";
-import store from "../store";
 
 export default {
   name: "Message",
@@ -27,7 +26,7 @@ export default {
     saveMessage() {
       if (this.message)
         db.collection("messages").add({
-          author: store.state.user.name,
+          author: this.$store.state.user.name,
           content: this.message,
           date: Date.now()
         });

@@ -9,7 +9,8 @@ export default new Vuex.Store({
       name: 'Anon',
       color: 'Black'
     },
-    loaded: false
+    loaded: false,
+    messageCount: 0
   },
   mutations: {
     updateUser(state, user){
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     setLoaded(state){
       state.loaded = true;
+    },
+    updateMessageCount(state, count){
+      state.messageCount ++;
     }
   },
   actions: {

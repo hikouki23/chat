@@ -4,7 +4,7 @@
         <v-combobox :style="{'width':'100%'}"
           v-model="userName"
           :hint="'Your name here'"
-          :items="users"
+          :items="userNames"
           :label="'User Name'"
           @keyup.enter="saveUser"
           v-on:focusout="saveUser"
@@ -15,19 +15,25 @@
 </template>
 <script>
 import db from "../firebase";
-import store from "../store";
+import	_ from "lodash";
+
 export default {
   name: "User",
   data() {
-    return { users: [], userName: store.state.user.name };
+    return { users: [], userName: this.$store.state.user.name };
   },
   methods: {
     saveUser() {
-      let user = {name: this.userName, color:'grey'}
+      let user = _.find(this.users, ['name', this.userName]) || {name: this.userName, color:'grey'}
       db.collection("users")
         .doc(this.userName)
         .set(user, { merge: true }); 
-      store.commit('updateUser', user);
+      this.$store.commit('updateUser', user);
+    }
+  },
+  computed: {
+    userNames(){
+      return this.users.map(user=> {return user.name});
     }
   },
   mounted() {
@@ -35,7 +41,7 @@ export default {
       .get()
       .then(snapshot => {
         snapshot.forEach(user => {
-          this.users.push(user.data().name);
+          this.users.push(user.data());
         });
       });
   }
