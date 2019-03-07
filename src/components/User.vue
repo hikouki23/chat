@@ -14,7 +14,7 @@
         </span>
 </template>
 <script>
-import db from "../firebase";
+import {db} from "../firebase";
 import	_ from "lodash";
 
 export default {

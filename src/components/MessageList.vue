@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import db from "../firebase";
+import {db} from "../firebase";
 import Message from "./Message";
 
 export default {
