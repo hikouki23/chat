@@ -7,7 +7,7 @@
           :items="users"
           :label="'User Name'"
           @keyup.enter="saveUser"
-          v-on:blur="saveUser"
+          v-on:focusout="saveUser"
           persistent-hint
           prepend-icon="fas fa-edit"
         ></v-combobox>

@@ -46,13 +46,14 @@ export default {
   created() {
 
     db.collection("messages")
-      .orderBy("date", "asc")
+      .orderBy("date", "desc")
       .limit(10)
       .get()
       .then(snapshot => {
         snapshot.forEach(message => {
           this.messages.push(message.data());
         });
+        this.messages = this.messages.reverse();
       })
       .then(() => (store.commit('setLoaded')));
   },
