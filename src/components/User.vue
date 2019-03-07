@@ -1,6 +1,6 @@
 <template>
      <span>
-        <v-subheader class="pa-0">Profile</v-subheader>
+        <v-subheader class="pa-0 hidden-md-and-up">Profile</v-subheader>
         <v-combobox :style="{'width':'100%'}"
           v-model="userName"
           :hint="'Your name here'"
@@ -45,9 +45,6 @@ export default {
 <style scoped>
 >>>input{
   text-transform: capitalize;
-}
->>>span{
- height: 75%;
 }
 </style>
 

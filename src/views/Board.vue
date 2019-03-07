@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <v-layout wrap>
-        <User class="hidden-m-and-up"/>
-        <MessageList />
-        <Message />
+    <v-layout wrap column>
+      <User class="hidden-md-and-up" :style="{'padding-bottom': '1em'}"/>
+      <MessageList/>
+      <Message/>
     </v-layout>
   </v-container>
 </template>
@@ -21,7 +21,7 @@ export default {
       messages: [],
       currentUser: { name: "Anon", color: "grey" }
     };
-  },
+  }
 };
 </script>
 

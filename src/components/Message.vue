@@ -1,8 +1,13 @@
 <template>
-  <v-flex>
-    <v-card>
-      <v-text-field append-icon="close" v-on:click:append="clearMessage" v-model="message" v-on:keyup.enter="saveMessage" label="Write your message">
-      </v-text-field>
+  <v-flex v-ripple>
+    <v-card class="pa-3 mt-2">
+      <v-text-field
+        append-icon="close"
+        v-on:click:append="clearMessage"
+        v-model="message"
+        v-on:keyup.enter="saveMessage"
+        label="Write your message" autofocus
+      ></v-text-field>
     </v-card>
   </v-flex>
 </template>
@@ -35,4 +40,3 @@ export default {
   }
 };
 </script>
-

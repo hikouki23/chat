@@ -1,7 +1,7 @@
 <template>
-  <v-flex xs12>
+  <v-flex>
       <v-card>
-        <v-list one-line>
+        <v-list one-line >
           <template v-for="(message, index) in messages">
             <v-subheader
               :key="message.id"
