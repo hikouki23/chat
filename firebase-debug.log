@@ -1,0 +1,17 @@
+[debug] [2019-03-07T22:18:49.701Z] ----------------------------------------------------------------------
+[debug] [2019-03-07T22:18:49.704Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\sg0211885\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-03-07T22:18:49.705Z] CLI Version:   6.4.0
+[debug] [2019-03-07T22:18:49.705Z] Platform:      win32
+[debug] [2019-03-07T22:18:49.705Z] Node Version:  v10.0.0
+[debug] [2019-03-07T22:18:49.706Z] Time:          Thu Mar 07 2019 19:18:49 GMT-0300 (Argentina Standard Time)
+[debug] [2019-03-07T22:18:49.706Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-07T22:18:49.721Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-07T22:18:49.723Z] > authorizing via signed-in user
+[debug] [2019-03-07T22:18:49.723Z] [iam] checking project chat-3c1e7 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-03-07T22:18:49.725Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/chat-3c1e7:testIamPermissions  
+
+[debug] [2019-03-07T22:19:10.927Z] Error: connect ETIMEDOUT 172.217.6.138:443
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1161:14)
+[error] 
+[error] Error: Server Error. connect ETIMEDOUT 172.217.6.138:443
