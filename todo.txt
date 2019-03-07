@@ -1,4 +1,5 @@
-fix capitalize on user input
+browser tab alert/message count
+elevation on odd cards
 user joined/left alert ->snackbar
 users online
 user x is writing a message alert
