@@ -1,5 +1,8 @@
 import store from "./store";
-import { db, functions } from "./firebase";
+import {
+  db,
+  functions
+} from "./firebase";
 const saveSubscription = functions.httpsCallable('saveSubscription');
 
 const config = {
@@ -12,19 +15,22 @@ const config = {
     }
   }
 }
+
 async function registerWorker() {
   let registration = await navigator.serviceWorker.register('service-worker.js').catch(err => console.error(err));
-  let serverKey = functions.config().serverkey.public || "BDmfNRL53lHEEcq0842qz_DuELFzD2lDzbckS-hgqWOObSo_g86elxKDqJZwYj6OoHzA8H3FaBB8GA3TDfIznJY";
+  let serverKey = "BDmfNRL53lHEEcq0842qz_DuELFzD2lDzbckS-hgqWOObSo_g86elxKDqJZwYj6OoHzA8H3FaBB8GA3TDfIznJY";
 
-  let subscription = await registration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(serverKey),
-  }).then(subscription => {
-    console.log(`Saving subscription:${subscription}`);
-  })
+  let subscription = await registration.pushManager.getSubscription() || await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(serverKey),
+    }).then(subscription => {
+      console.log(`Saving subscription:${subscription}`);
+    })
     .catch(err => console.error(err));
 
-    saveSubscription({ subscription: JSON.stringify(subscription) }).catch(err => console.error(err));
+  saveSubscription({
+    subscription: JSON.stringify(subscription)
+  }).catch(err => console.error(err));
 }
 
 function urlBase64ToUint8Array(base64String) {

@@ -1,6 +1,6 @@
 <template>
-  <div class="text-xs-center pl-4">
-    <v-badge left>
+  <div class="text-xs-center pl-2">
+    <v-badge right>
       <template v-slot:badge>
         <span>{{messageCount}}</span>
       </template>
@@ -14,8 +14,7 @@
   </div>
 </template>
 <script>
-import {db, functions} from "../firebase";
-const sendNotificationsFunc = functions.httpsCallable('sendNotifications');
+import request from "request";
 
 export default {
     name:"Alert",
@@ -26,8 +25,15 @@ export default {
     },
     methods: {
         sendNotifications(){
-            sendNotificationsFunc();
+           request("http://shsdevgrodrig1.sgdcelab.sabre.com:8081/sendNotifications", (err, res, body)=>{
+               console.log(body);
+           }); 
         }
     }
 }
 </script>
+<style scoped>
+>>>.v-badge__badge{
+    right:-11px;
+}
+</style>
