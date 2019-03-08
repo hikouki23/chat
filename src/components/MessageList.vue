@@ -45,7 +45,6 @@ export default {
     }
   },
   created() {
-
     db.collection("messages")
       .orderBy("date", "desc")
       .limit(10)
@@ -59,7 +58,6 @@ export default {
       .then(() => (this.$store.commit('setLoaded')));
   },
   mounted() {
-        console.log('created')
     let mountedDate = Date.now();
     db.collection("messages").onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {

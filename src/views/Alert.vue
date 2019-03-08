@@ -15,7 +15,6 @@
 </template>
 <script>
 import {db, functions} from "../firebase";
-import webPush from "web-push";
 const sendNotificationsFunc = functions.httpsCallable('sendNotifications');
 
 export default {

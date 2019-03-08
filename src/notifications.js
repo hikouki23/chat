@@ -1,28 +1,30 @@
 import store from "./store";
-import {db, functions} from "./firebase";
+import { db, functions } from "./firebase";
 const saveSubscription = functions.httpsCallable('saveSubscription');
 
 const config = {
   setup() {
-  if (!'serviceWorker' in navigator || !'Notification' in window)
-    console.log('Defaulting to polling');
-  else {
-    registerWorker();
-    registerClientUpdateEvent();
+    if (!'serviceWorker' in navigator || !'Notification' in window)
+      console.log('Defaulting to polling');
+    else {
+      registerWorker();
+      registerClientUpdateEvent();
+    }
   }
 }
-}
 async function registerWorker() {
-  let registration = await navigator.serviceWorker.register('service-worker.js');
-  let serverKey = "BDD_F-9cxIQAPopaYNpFBF-G2XEjtTKyYPwKsXJU7ZDA7XBFY8raVakDge_jbc0ddPcF5E-1CRImRc0Rw2X4NfU";
+  let registration = await navigator.serviceWorker.register('service-worker.js').catch(err => console.error(err));
+  let serverKey = functions.config().serverkey.public || "BDmfNRL53lHEEcq0842qz_DuELFzD2lDzbckS-hgqWOObSo_g86elxKDqJZwYj6OoHzA8H3FaBB8GA3TDfIznJY";
 
   let subscription = await registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(serverKey),
+  }).then(subscription => {
+    console.log(`Saving subscription:${subscription}`);
   })
+    .catch(err => console.error(err));
 
-  //db.collection("subscriptions").add({subscription: JSON.stringify(subscription)}); 
-  saveSubscription({subscription: JSON.stringify(subscription)});
+    saveSubscription({ subscription: JSON.stringify(subscription) }).catch(err => console.error(err));
 }
 
 function urlBase64ToUint8Array(base64String) {
