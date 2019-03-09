@@ -13,7 +13,8 @@ export default new Vuex.Store({
     userNames: ['Anon'],
     users: new Map(),
     messages: [],
-    loaded: false
+    loaded: false,
+    unreadMessages: 0
   },
   mutations: {
     updateUser(state, user) {
@@ -31,6 +32,12 @@ export default new Vuex.Store({
     addMessage(state, message) {
       state.messages.push(message); 
     },
+    addUnreadMessage(state){
+      state.unreadMessages ++;
+    },
+    markMessagesAsRead(state){
+      state.unreadMessages = 0;
+    }
   },
   actions: {
     saveUser({ commit }, user) {
@@ -78,7 +85,11 @@ export default new Vuex.Store({
       db.collection("messages").onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === "added" && change.doc.data().date > mountedDate)
+          {
             commit("addMessage", change.doc.data());
+            if(!document.hasFocus())
+              commit("addUnreadMessage");
+          }
         });
       });
     }
