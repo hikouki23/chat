@@ -15,6 +15,7 @@
 <script>
 import db from "../firebase";
 import { mapState } from "vuex";
+
 export default {
   name: "User",
   methods: {},
@@ -22,15 +23,15 @@ export default {
     ...mapState(["userNames"]),
     userName: {
       get() {
-        return store.state.user.name;
+        return this.$store.state.user.name;
       },
       set(value) {
-        store.dispatch("saveUser", { ...store.state.user, name: value });
+        this.$store.dispatch("saveUser", { ...this.$store.state.user, name: value });
       }
     }
   },
   mounted() {
-   store.dispatch("loadUsers");
+   this.$store.dispatch("loadUsers");
   }
 };
 </script>

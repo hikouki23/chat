@@ -29,8 +29,8 @@ export default new Vuex.Store({
       state.users.set(user.name, user);
     },
     addMessage(state, message) {
-      state.messages.unshift(message); //add to the top
-    }
+      state.messages.push(message); 
+    },
   },
   actions: {
     saveUser({ commit }, user) {
@@ -48,17 +48,39 @@ export default new Vuex.Store({
           });
         });
     },
-    loadMessages({ commit }) {
+    saveMessage({ commit }, message) {
+      if (message)
+        db.collection("messages").add({
+          author: this.state.user.name,
+          content: message,
+          date: Date.now()
+        });
+    },
+    loadMessages({ dispatch, commit }) {
       db.collection("messages")
         .orderBy("date", "desc")
         .limit(10)
         .get()
         .then(snapshot => {
+          let messages = [];
           snapshot.forEach(message => {
-            commit("addMessage", message);
+            messages.unshift(message.data()); //add in reverse order to avoid getting only the oldest 10 messages
           });
+          messages.forEach(message => commit("addMessage", message));
         })
-        .then(() => (commit('setLoaded')));
+        .then(() => {
+          commit('setLoaded');
+          dispatch("attachOnMessageAdded");
+        });
+    },
+    attachOnMessageAdded({ commit }) {
+      let mountedDate = Date.now();
+      db.collection("messages").onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === "added" && change.doc.data().date > mountedDate)
+            commit("addMessage", change.doc.data());
+        });
+      });
     }
   }
 })
