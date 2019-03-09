@@ -19,7 +19,8 @@ export default {
   components: {
     Board,
     Loading,
-    Toolbar
+    Toolbar,
+    store
   },
   computed: {
     loaded() {
