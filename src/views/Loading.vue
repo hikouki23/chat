@@ -7,7 +7,7 @@ export default {
   name: "Loading",
   computed: {
     loaded(){
-      return store.state.loaded;
+      return this.$store.state.loaded;
     }
   }
 };

@@ -6,7 +6,8 @@
         v-on:click:append="clearMessage"
         v-model="message"
         v-on:keyup.enter="saveMessage"
-        label="Write your message" autofocus
+        label="Write your message"
+        autofocus
       ></v-text-field>
     </v-card>
   </v-flex>
@@ -24,14 +25,7 @@ export default {
   },
   methods: {
     saveMessage() {
-      if (this.message)
-        db.collection("messages").add({
-          author: store.state.user.name,
-          content: this.message,
-          date: Date.now()
-        });
-
-      this.message = "";
+      this.$store.dispatch("saveMessage", this.message).then(()=> this.clearMessage()).catch(err=>console.error(`Couldn't send message${err}`));
     },
     clearMessage() {
       this.message = "";

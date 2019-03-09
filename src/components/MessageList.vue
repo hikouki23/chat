@@ -32,25 +32,11 @@ import { mapState } from "vuex";
 export default {
   name: "MessageList",
   components: { Message },
-  data() {
-    return {
-      loaded: false,
-    };
-  },
   computed:{
-   ...mapState(["loaded","messages"])
+   ...mapState(["loaded","messages", "user"])
   },
   created() {
-    store.dispatch("loadMessages");
-  },
-  mounted() {
-    let mountedDate = Date.now();
-    db.collection("messages").onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if (change.type === "added" && change.doc.data().date > mountedDate)
-          this.messages.push(change.doc.data());
-      });
-    });
+    this.$store.dispatch("loadMessages");
   },
 };
 </script>
