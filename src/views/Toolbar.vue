@@ -1,6 +1,7 @@
 <template>
   <v-toolbar app class="py-1">
     <v-toolbar-title class="headline text-uppercase">
+      <Title />
       <span>Hikouki</span>
       <span class="font-weight-light">Chat</span>
     </v-toolbar-title>
@@ -19,14 +20,17 @@
 
 <script>
 import User from "../components/User";
+import store from "../store";
+import Title from "./Title";
+
 export default {
   name: "Toolbar",
-  components: { User }
+  components: { User, Title }
 };
 </script>
 
 <style scoped>
->>>i.fab {
+>>> i.fab {
   font-size: 2.5em;
 }
 </style>
