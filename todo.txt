@@ -1,4 +1,5 @@
-browser tab alert/message count
+tab icon color change
+custom favicon
 avatar random color
 user joined/left alert ->snackbar
 users online
