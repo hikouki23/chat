@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <v-flex>
     <v-subheader class="pa-0 hidden-md-and-up">Profile</v-subheader>
     <v-combobox
       :style="{'width':'100%'}"
@@ -10,7 +10,7 @@
       persistent-hint
       prepend-icon="fas fa-edit"
     ></v-combobox>
-  </span>
+  </v-flex>
 </template>
 <script>
 import db from "../firebase";
