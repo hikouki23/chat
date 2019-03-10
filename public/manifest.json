@@ -1,0 +1,16 @@
+{
+    "name": "Hikouki chat",
+    "short_name": "Hikouki",
+    "theme_color": "#636d74",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons":[
+        {
+            "src": "./progressive.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+  }
