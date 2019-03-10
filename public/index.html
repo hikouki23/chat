@@ -24,6 +24,12 @@
   </noscript>
   <div id="app"></div>
 
+  <script type="text/javascript" defer>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("./service-worker").catch(err=> console.error(err));
+    }
+  </script>
+
   <!-- built files will be auto injected -->
 </body>
 
