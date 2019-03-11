@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         sendNotifications(){
-           request("http://shsdevgrodrig1.sgdcelab.sabre.com:8081/sendNotifications", (err, res, body)=>{
+           request("https://webpushapi.herokuapp.com/sendNotifications", (err, res, body)=>{
                console.log(body);
            }); 
         }
