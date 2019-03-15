@@ -7,9 +7,9 @@
               :key="message.id"
             >{{new Date(message.date).toLocaleDateString()}} {{new Date(message.date).toLocaleTimeString()}}</v-subheader>
             <v-list-tile :key="message.id">
-              <v-chip>
-                <v-avatar v-bind:color="user.color">
-                  <span class="black--text">{{message.author[0]}}</span>
+              <v-chip class="font-weight-medium white--text text--darken-1" v-bind:class="`${message.color || 'grey'}`">
+                <v-avatar>
+                  <span>{{message.author[0]}}</span>
                 </v-avatar>
                 {{message.author}}
               </v-chip>
