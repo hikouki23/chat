@@ -1,5 +1,5 @@
-tab icon color change
-custom favicon
+tab icon color change --fix change user should update color- Refactor to pull all the user data, not just the user name
+fix text width adjust on messages
 avatar random color
 user joined/left alert ->snackbar
 users online
