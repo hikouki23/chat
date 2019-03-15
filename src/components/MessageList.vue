@@ -27,45 +27,16 @@
 <script>
 import db from "../firebase";
 import Message from "./Message";
-import store from "../store";
+import { mapState } from "vuex";
 
 export default {
   name: "MessageList",
   components: { Message },
-  data() {
-    return {
-      loaded: false,
-      messages: [],      
-    };
-  },
   computed:{
-    user(){
-      return store.state.user;
-    }
+   ...mapState(["loaded","messages", "user"])
   },
   created() {
-
-    db.collection("messages")
-      .orderBy("date", "desc")
-      .limit(10)
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(message => {
-          this.messages.push(message.data());
-        });
-        this.messages = this.messages.reverse();
-      })
-      .then(() => (store.commit('setLoaded')));
-  },
-  mounted() {
-        console.log('created')
-    let mountedDate = Date.now();
-    db.collection("messages").onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if (change.type === "added" && change.doc.data().date > mountedDate)
-          this.messages.push(change.doc.data());
-      });
-    });
+    this.$store.dispatch("loadMessages");
   },
 };
 </script>

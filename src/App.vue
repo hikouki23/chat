@@ -12,18 +12,23 @@
 import Board from "./views/Board";
 import Toolbar from "./views/Toolbar";
 import Loading from "./views/Loading";
-import store from "./store";
 
 export default {
   name: "App",
   components: {
     Board,
     Loading,
-    Toolbar
+    Toolbar,
   },
   computed: {
     loaded() {
-      return store.state.loaded;
+      return this.$store.state.loaded;
+    }
+  },
+  watch: {
+    unreadMessages(){
+      if(this.$store.state.unreadMessages > 0)
+        document.title = document.title + `Unread messages(${this.$store.state.unreadMessages}`;
     }
   }
 };

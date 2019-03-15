@@ -1,5 +1,11 @@
-browser tab alert/message count
-elevation on odd cards
+tab icon color change
+custom favicon
+avatar random color
 user joined/left alert ->snackbar
 users online
 user x is writing a message alert
+move actions and mutations to namespaced modules and individual files
+show friendly errors to users when messages couldn't be delivered
+elevation on odd cards
+
+

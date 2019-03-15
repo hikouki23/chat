@@ -1,49 +1,43 @@
 <template>
-     <span>
-        <v-subheader class="pa-0 hidden-md-and-up">Profile</v-subheader>
-        <v-combobox :style="{'width':'100%'}"
-          v-model="userName"
-          :hint="'Your name here'"
-          :items="users"
-          :label="'User Name'"
-          @keyup.enter="saveUser"
-          v-on:focusout="saveUser"
-          persistent-hint
-          prepend-icon="fas fa-edit"
-        ></v-combobox>
-        </span>
+  <v-flex>
+    <v-subheader class="pa-0 hidden-md-and-up">Profile</v-subheader>
+    <v-combobox
+      :style="{'width':'100%'}"
+      v-model="userName"
+      :hint="'Your name here'"
+      :items="userNames"
+      :label="'User Name'"
+      persistent-hint
+      prepend-icon="fas fa-edit"
+    ></v-combobox>
+  </v-flex>
 </template>
 <script>
 import db from "../firebase";
-import store from "../store";
+import { mapState } from "vuex";
+
 export default {
   name: "User",
-  data() {
-    return { users: [], userName: store.state.user.name };
-  },
-  methods: {
-    saveUser() {
-      let user = {name: this.userName, color:'grey'}
-      db.collection("users")
-        .doc(this.userName)
-        .set(user, { merge: true }); 
-      store.commit('updateUser', user);
+  methods: {},
+  computed: {
+    ...mapState(["userNames"]),
+    userName: {
+      get() {
+        return this.$store.state.user.name;
+      },
+      set(value) {
+        this.$store.dispatch("saveUser", { ...this.$store.state.user, name: value });
+      }
     }
   },
   mounted() {
-    db.collection("users")
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(user => {
-          this.users.push(user.data().name);
-        });
-      });
+   this.$store.dispatch("loadUsers");
   }
 };
 </script>
 
 <style scoped>
->>>input{
+>>> input {
   text-transform: capitalize;
 }
 </style>
