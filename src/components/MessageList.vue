@@ -13,7 +13,7 @@
                 </v-avatar>
                 {{message.author}}
               </v-chip>
-              <v-list-tile-content>
+              <v-list-tile-content >
                 <v-card-text>{{message.content}}</v-card-text>
               </v-list-tile-content>
             </v-list-tile>
@@ -40,4 +40,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+>>> .v-list__tile {
+  height:100%
+}
+>>> .v-card__text {
+  word-break: break-all
+}
+</style>
 
