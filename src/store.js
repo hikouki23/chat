@@ -60,10 +60,7 @@ export default new Vuex.Store({
         db.collection("messages").add({
           author: this.state.user.name,
           content: message,
-<<<<<<< HEAD
-=======
           color: this.state.user.color,
->>>>>>> 265c04f67532f3975a694a3cbc636496174b5a1c
           date: Date.now()
         });
     },
