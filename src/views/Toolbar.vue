@@ -10,7 +10,7 @@
       <User/>
       <v-btn flat href="https://github.com/hikouki23/chat" target="_blank">
         <div>
-          <i class="fab fa-github mr-1"></i>
+          <i class="fab fa-github mr-1 grey--text text--darken-1"></i>
           <span>2.0</span>
         </div>
       </v-btn>
